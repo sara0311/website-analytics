@@ -5,7 +5,7 @@ USER root
 EXPOSE 8080
 
 ARG workspace="none"
-ARG queue="false"
+ARG queue="true"
 
 RUN apt-get update \
     && apt-get install --assume-yes wget
