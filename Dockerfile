@@ -5,6 +5,7 @@ USER root
 EXPOSE 8080
 
 ARG workspace="none"
+ARG queue="false"
 
 RUN apt-get update \
     && apt-get install --assume-yes wget
@@ -20,9 +21,9 @@ RUN sh db-setup.sh
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 RUN export JAVA_HOME
 
-RUN wget https://codejudge-starter-repo-artifacts.s3.ap-south-1.amazonaws.com/backend-project/queue/queue-setup.sh
-RUN chmod 775 ./queue-setup.sh
-RUN sh queue-setup.sh
+RUN if [ $queue = "true" ] ; then \
+    wget https://codejudge-starter-repo-artifacts.s3.ap-south-1.amazonaws.com/backend-project/queue/queue-setup.sh \
+    && chmod 775 ./queue-setup.sh && sh queue-setup.sh ; fi
 
 # Install Workspace for Python
 
@@ -59,6 +60,8 @@ RUN chmod 775 ./build.sh
 RUN sh build.sh
 
 ADD . .
+
+ENV QUEUE=$queue
 
 # Run the app
 RUN wget https://codejudge-starter-repo-artifacts.s3.ap-south-1.amazonaws.com/backend-project/python/django/run-3.sh
