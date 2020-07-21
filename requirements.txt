@@ -1,4 +1,5 @@
 Django==2.0
 pytz==2019.2
 kafka-python==2.0.1
-rest_framework==3.8.1
+djangorestframework==3.11.0
+django-unixdatetimefield==1.2.0
