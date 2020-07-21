@@ -23,8 +23,9 @@ if __name__ == "__main__":
         data1 = json.loads(m.value)
         format = "%d/%m/%Y"
         date_str = data1['timestamp']
-        date = datetime.datetime.strptime(date_str,"%d/%m/%Y %H:%M:%S")
-        timestamp = datetime.datetime(date).timestamp()
+        d = datetime.datetime.strptime(date_str,"%d/%m/%Y %H:%M:%S")
+        timestamp = d.timestamp()
+        #timestamp = datetime.datetime(date).timestamp()
         message = data1['message']
         event_type = data1['event_type']
         e = Event(event_type = event_type, timestamp = timestamp, message = message)
