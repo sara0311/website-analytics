@@ -1,3 +1,5 @@
+from time import sleep
+
 from django.shortcuts import render
 from django.http import JsonResponse, Http404
 from kafka import KafkaConsumer, KafkaProducer
@@ -77,6 +79,7 @@ class EventAPIView(APIView):
             #print('f') """
         #print(type(data))
         #data1 = json.loads(data)
+        sleep(2)
         d = Event.objects.all().last()
         data1 = d.__dict__
         #data1 = serializers.serialize("json", d)
